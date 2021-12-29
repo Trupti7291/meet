@@ -9,6 +9,12 @@
       "runtime": "nodejs12.x",
       "region": "eu-central-1",
       "timeout": 60,
+      "environment": {
+        "CLIENT_ID": "432544702625-1idddos6hgomvgcphqg94g8qr89690r7.apps.googleusercontent.com",
+        "CLIENT_SECRET": "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",
+        "PROJECT_ID": "meet-app-335915",
+        "CALENDAR_ID": "fullstackwebdev@careerfoundry.com"
+      },
       "stage": "dev",
       "versionFunctions": true,
       "compiledCloudFormationTemplate": {
@@ -180,13 +186,21 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/auth-server/dev/1640597419365-2021-12-27T09:30:19.365Z/auth-server.zip"
+                "S3Key": "serverless/auth-server/dev/1640763991232-2021-12-29T07:46:31.232Z/auth-server.zip"
               },
               "Handler": "handler.getAuthURL",
               "Runtime": "nodejs12.x",
               "FunctionName": "auth-server-dev-getAuthURL",
               "MemorySize": 1024,
               "Timeout": 60,
+              "Environment": {
+                "Variables": {
+                  "CLIENT_ID": "432544702625-1idddos6hgomvgcphqg94g8qr89690r7.apps.googleusercontent.com",
+                  "CLIENT_SECRET": "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",
+                  "PROJECT_ID": "meet-app-335915",
+                  "CALENDAR_ID": "fullstackwebdev@careerfoundry.com"
+                }
+              },
               "Role": {
                 "Fn::GetAtt": [
                   "IamRoleLambdaExecution",
@@ -205,13 +219,21 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/auth-server/dev/1640597419365-2021-12-27T09:30:19.365Z/auth-server.zip"
+                "S3Key": "serverless/auth-server/dev/1640763991232-2021-12-29T07:46:31.232Z/auth-server.zip"
               },
               "Handler": "handler.getAccessToken",
               "Runtime": "nodejs12.x",
               "FunctionName": "auth-server-dev-getAccessToken",
               "MemorySize": 1024,
               "Timeout": 60,
+              "Environment": {
+                "Variables": {
+                  "CLIENT_ID": "432544702625-1idddos6hgomvgcphqg94g8qr89690r7.apps.googleusercontent.com",
+                  "CLIENT_SECRET": "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",
+                  "PROJECT_ID": "meet-app-335915",
+                  "CALENDAR_ID": "fullstackwebdev@careerfoundry.com"
+                }
+              },
               "Role": {
                 "Fn::GetAtt": [
                   "IamRoleLambdaExecution",
@@ -223,24 +245,24 @@
               "GetAccessTokenLogGroup"
             ]
           },
-          "GetAuthURLLambdaVersionZVWVXxEDp5hrJqUeLNYKZmSk0FlnXphh381d8a0fE": {
+          "GetAuthURLLambdaVersionwLtqX5mKgPSI4ccKWzhR3sZBcwZsGA5WrYcnLHM5yI": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "GetAuthURLLambdaFunction"
               },
-              "CodeSha256": "vz9t4hNeatQB5IyQ5NNuKlB3xJDBTLHsKxp1pV/TlQA="
+              "CodeSha256": "YuN/SMpZDzmEC1LvX/U7IvRKwad0gU6OY5onHV0pZr0="
             }
           },
-          "GetAccessTokenLambdaVersionhFZ1YRprM7UiVdHsXsNafLlT9TSP3wiusqbt6m4HDRk": {
+          "GetAccessTokenLambdaVersion97ExQBl5hjygfJcWUk8ZFSRFoGHWzOYpRpUR55uNo": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "GetAccessTokenLambdaFunction"
               },
-              "CodeSha256": "vz9t4hNeatQB5IyQ5NNuKlB3xJDBTLHsKxp1pV/TlQA="
+              "CodeSha256": "YuN/SMpZDzmEC1LvX/U7IvRKwad0gU6OY5onHV0pZr0="
             }
           },
           "ApiGatewayRestApi": {
@@ -398,7 +420,7 @@
               "GetAccessTokenLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1640597415536": {
+          "ApiGatewayDeployment1640763988208": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -498,7 +520,7 @@
           "GetAuthURLLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "GetAuthURLLambdaVersionZVWVXxEDp5hrJqUeLNYKZmSk0FlnXphh381d8a0fE"
+              "Ref": "GetAuthURLLambdaVersionwLtqX5mKgPSI4ccKWzhR3sZBcwZsGA5WrYcnLHM5yI"
             },
             "Export": {
               "Name": "sls-auth-server-dev-GetAuthURLLambdaFunctionQualifiedArn"
@@ -507,7 +529,7 @@
           "GetAccessTokenLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "GetAccessTokenLambdaVersionhFZ1YRprM7UiVdHsXsNafLlT9TSP3wiusqbt6m4HDRk"
+              "Ref": "GetAccessTokenLambdaVersion97ExQBl5hjygfJcWUk8ZFSRFoGHWzOYpRpUR55uNo"
             },
             "Export": {
               "Name": "sls-auth-server-dev-GetAccessTokenLambdaFunctionQualifiedArn"
@@ -644,7 +666,7 @@
         "timeout": 60,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "GetAuthURLLambdaVersionZVWVXxEDp5hrJqUeLNYKZmSk0FlnXphh381d8a0fE"
+        "versionLogicalId": "GetAuthURLLambdaVersionwLtqX5mKgPSI4ccKWzhR3sZBcwZsGA5WrYcnLHM5yI"
       },
       "getAccessToken": {
         "handler": "handler.getAccessToken",
@@ -663,7 +685,7 @@
         "timeout": 60,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "GetAccessTokenLambdaVersionhFZ1YRprM7UiVdHsXsNafLlT9TSP3wiusqbt6m4HDRk"
+        "versionLogicalId": "GetAccessTokenLambdaVersion97ExQBl5hjygfJcWUk8ZFSRFoGHWzOYpRpUR55uNo"
       }
     },
     "configValidationMode": "warn",
@@ -675,10 +697,6 @@
       "provider": {
         "$ref": "$[\"service\"][\"provider\"]"
       },
-      "CLIENT_ID": "432544702625-1idddos6hgomvgcphqg94g8qr89690r7.apps.googleusercontent.com",
-      "CLIENT_SECRET": "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",
-      "PROJECT_ID": "meet-app-335915",
-      "CALENDAR_ID": "truptikara@gmail.com",
       "functions": {
         "$ref": "$[\"service\"][\"functions\"]"
       }
@@ -688,7 +706,7 @@
     "artifact": "/Users/ghanshyamhirani/Documents/GitHub/meet/auth-server/.serverless/auth-server.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/auth-server/dev/1640597419365-2021-12-27T09:30:19.365Z",
+    "artifactDirectoryName": "serverless/auth-server/dev/1640763991232-2021-12-29T07:46:31.232Z",
     "artifact": "auth-server.zip"
   }
 }
