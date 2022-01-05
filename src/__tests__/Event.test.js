@@ -5,6 +5,7 @@ import Event from "../Event";
 
 describe('<Event /> component', () => {
     let EventWrapper;
+    let event;
     beforeAll(() => {
         EventWrapper = shallow(<Event event={event} />);
     });
