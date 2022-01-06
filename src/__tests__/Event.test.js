@@ -17,7 +17,7 @@ describe('<Event /> component', () => {
         expect(EventWrapper.find('.start-date')).toHaveLength(1);
     });
     test('renders location', () => {
-        expect(EventWrapper.find('.location')).toHaveLength(1);
+        expect(EventWrapper.find('.locations')).toHaveLength(1);
     });
     test('renders the show/hide details button', () => {
         expect(EventWrapper.find('.show-details-btn')).toHaveLength(1);

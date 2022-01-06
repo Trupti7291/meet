@@ -3,7 +3,7 @@ import { Button, Card } from "react-bootstrap";
 
 class Event extends Component {
     state = {
-        event: {},
+        events: {},
         collapsed: true,
     };
 
@@ -14,20 +14,20 @@ class Event extends Component {
     };
 
     render() {
-        const { event } = this.props;
+        const { events } = this.props;
         const { collapsed } = this.state;
         return (
-            <Card className="event">
-                <Card.Header className="summary" as="h4">
-                    {event.summary}
+            <Card className="events">
+                <Card.Header className="summary">
+                    {events.summary}
                 </Card.Header>
                 <Card.Body className="event-body">
                     <p className="start-date">
-                        {event.start.dateTime} ({event.start.timeZone})
+                        {events.start.dateTime} ({events.start.timeZone})
                     </p>
 
-                    <p className="location">
-                        @{event.summary} | {event.location}
+                    <p className="locations">
+                        @{events.summary} | {events.location}
                     </p>
 
                     {!collapsed && (
@@ -37,10 +37,10 @@ class Event extends Component {
                         >
                             <br />
                             <h6 className="about">About Event</h6>
-                            <a href={event.htmlLink} target="_blank" rel="noreferrer">
+                            <a href={events.htmlLink} target="_blank">
                                 See deatails on Google calendar
                             </a>
-                            <p className="event-description">{event.description}</p>
+                            <p className="event-description">{events.description}</p>
                         </div>
                     )}
                     <Button
