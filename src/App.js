@@ -12,7 +12,7 @@ class App extends Component {
     locations: [],
     currentLocation: 'all',
     numberOfEvents: 32,
-
+    errorText: ''
   }
 
   async componentDidMount() {

@@ -26,7 +26,6 @@ export const getEvents = async () => {
         return mockData;
     }
 
-
     const token = await getAccessToken();
 
     if (token) {
