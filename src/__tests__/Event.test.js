@@ -3,49 +3,49 @@ import { shallow } from "enzyme";
 import { mockData } from "../mock-data";
 import Event from "../Event";
 
-describe('<Event /> component', () => {
+describe("<Event /> component", () => {
     let EventWrapper;
-    let event;
+
     beforeAll(() => {
-        EventWrapper = shallow(<Event event={event} />);
-    });
-    // Test cases that test basic information
-    test('renders summary', () => {
-        expect(EventWrapper.find('.summary')).toHaveLength(1);
-    });
-    test('renders start-date and timezone', () => {
-        expect(EventWrapper.find('.start-date')).toHaveLength(1);
-    });
-    test('renders location', () => {
-        expect(EventWrapper.find('.locations')).toHaveLength(1);
-    });
-    test('renders the show/hide details button', () => {
-        expect(EventWrapper.find('.show-details-btn')).toHaveLength(1);
+        EventWrapper = shallow(<Event event={mockData[0]} />);
     });
 
-    //Scenario 1
-    test('the event element is collapsed by default', () => {
-        EventWrapper.setState({
-            collapsed: true,
-        });
-        expect(EventWrapper.state('collapsed')).toBe(true);
+    test("render the component", () => {
+        expect(EventWrapper).toHaveLength(1);
     });
 
-    //Scenario 2
-    test('click on a show-details button to expand the event details', () => {
-        EventWrapper.setState({
-            collapsed: true,
-        });
-        EventWrapper.find('.show-details-btn').simulate('click');
-        expect(EventWrapper.state('collapsed')).toBe(false);
+    test("rendre the eventwrapping div", () => {
+        expect(EventWrapper.find(".event")).toHaveLength(1);
     });
 
-    //Scenario 3
-    test('click on hide-details button to hide the evet details', () => {
+    test("render show event__Overview", () => {
+        expect(EventWrapper.find(".event").children()).toHaveLength(1);
+    });
+
+    test("render event__Overview", () => {
+        expect(EventWrapper.find(".event__Overview")).toHaveLength(1);
+    });
+
+    test("render event__Overview children ", () => {
+        expect(EventWrapper.find(".event__Overview").children()).toHaveLength(4);
+    });
+
+    test("render event__Details children ", () => {
         EventWrapper.setState({
-            collapsed: false,
+            showDetails: true,
         });
-        EventWrapper.find('.hide-details-btn').simulate('click');
-        expect(EventWrapper.state('collapsed')).toBe(true);
+        expect(EventWrapper.find(".event__Details--description")).toHaveLength(1);
+    });
+
+    test("render show/hide details button ", () => {
+        expect(EventWrapper.find(".event__Overview button")).toHaveLength(1);
+    });
+
+    test("click on button should show details", () => {
+        EventWrapper.setState({
+            showDetails: false,
+        });
+        EventWrapper.find(".event__Overview button").simulate("click");
+        expect(EventWrapper.state("showDetails")).toBe(true);
     });
 });

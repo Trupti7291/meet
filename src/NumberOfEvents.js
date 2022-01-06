@@ -1,22 +1,37 @@
 import React, { Component } from "react";
-import { Row, Col, Container } from "react-bootstrap";
-
-
 class NumberOfEvents extends Component {
+    state = {
+        numberOfEvents: 32,
+    };
+
+    handleInputChanged = (event) => {
+        const value = event.target.value;
+        this.props.updateEvents(null, value);
+        this.setState({ numberOfEvents: value });
+
+        if (value < 1) {
+            this.setState({
+                infoText: "Select number from 1 to 32",
+            });
+        } else {
+            this.setState({
+                infoText: "",
+            });
+        }
+    };
 
     render() {
+        const { numberOfEvents } = this.state;
         return (
-            <Container className="NumberOfEvents">
-                <Row>
-                    <Col>
-                        <p>Number of events to show:</p>
-                        <input type="number"
-                            className="number-of-events"
-                            value={this.props.numberOfEvents}
-                            onChange={(e) => this.props.updateNumberOfEvents(e)} />
-                    </Col>
-                </Row>
-            </Container>
+            <div className="numberOfEvents">
+                <label>Number of Events: </label>
+                <input
+                    type="text"
+                    id="numberOfEvents__input"
+                    value={numberOfEvents}
+                    onChange={this.handleInputChanged}
+                />
+            </div>
         );
     }
 }

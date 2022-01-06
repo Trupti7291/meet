@@ -1,60 +1,66 @@
 import React, { Component } from "react";
-import { Button, Card } from "react-bootstrap";
+import moment from "moment";
 
 class Event extends Component {
     state = {
-        events: {},
-        collapsed: true,
-    };
-
-    handleClick = () => {
-        this.state({
-            collapsed: !this.state.collapsed,
-        });
+        showDetails: false,
     };
 
     render() {
-        const { events } = this.props;
-        const { collapsed } = this.state;
+        const {
+            summary,
+            location,
+            start,
+            htmlLink,
+            description,
+        } = this.props.event;
+        const eventStart = moment(start.dateTime, "YYYY-MM-DD HH:mm").toDate();
+        const { showDetails } = this.state;
         return (
-            <Card className="events">
-                <Card.Header className="summary">
-                    {events.summary}
-                </Card.Header>
-                <Card.Body className="event-body">
-                    <p className="start-date">
-                        {events.start.dateTime} ({events.start.timeZone})
-                    </p>
-
-                    <p className="locations">
-                        @{events.summary} | {events.location}
-                    </p>
-
-                    {!collapsed && (
-                        <div
-                            className={`extra-details ${this.state.collapsed ? 'hide' : 'show'
-                                }`}
-                        >
-                            <br />
-                            <h6 className="about">About Event</h6>
-                            <a href={events.htmlLink} target="_blank">
-                                See deatails on Google calendar
-                            </a>
-                            <p className="event-description">{events.description}</p>
-                        </div>
+            <div className="event">
+                <div className="event__Overview">
+                    <h2 className="event__Overview--name">{summary}</h2>
+                    <p className="event__Overview--localDate">{`${eventStart}`}</p>
+                    {location && (
+                        <p className="event__Overview--venue">
+                            @{summary} | {location}
+                        </p>
                     )}
-                    <Button
-                        variant="light"
-                        size="md"
-                        id="eventButton"
-                        className={`${collapsed ? 'show' : 'hide'}-details-btn`}
-                        onClick={this.handleClick}
-                    >
-                        {collapsed ? 'show Details' : 'Hide Details'}
-                    </Button>
-                </Card.Body>
-            </Card>
+                    {showDetails && (
+                        <button
+                            className="details-btn"
+                            onClick={() => this.setState({ showDetails: !showDetails })}
+                        >
+                            hide details
+                        </button>
+                    )}
+
+                    {!showDetails && (
+                        <button
+                            className="details-btn"
+                            onClick={() => this.setState({ showDetails: !showDetails })}
+                        >
+                            show details
+                        </button>
+                    )}
+                </div>
+                {showDetails && (
+                    <div className="event__Details">
+                        <h3>About event:</h3>
+                        <h4>
+                            <a href={htmlLink} target="_blank" rel="noopener noreferrer">
+                                See details on Google Calendar
+                            </a>
+                        </h4>
+                        <p
+                            className="event__Details--description"
+                            dangerouslySetInnerHTML={{ __html: description }}
+                        />
+                    </div>
+                )}
+            </div>
         );
     }
 }
+
 export default Event;
