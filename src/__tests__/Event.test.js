@@ -25,14 +25,14 @@ describe('<Event /> component', () => {
     });
 
     //Scenario 1
-    test('the event element is collapsed by default', () => {
+    test('An event element is collapsed by default', () => {
         EventWrapper.setState({
             collapsed: true,
         });
         expect(EventWrapper.state('collapsed')).toBe(true);
     });
     //Scenario 2
-    test('click on a show-details button to expand the event details', () => {
+    test('User can expand an event to see its details', () => {
         EventWrapper.setState({
             collapsed: true,
         });
@@ -40,7 +40,7 @@ describe('<Event /> component', () => {
         expect(EventWrapper.state('collapsed')).toBe(false);
     });
     //Scenario 3
-    test('click on hide-details button to hide the evet details', () => {
+    test('User can collapse an event to hide its details', () => {
         EventWrapper.setState({
             collapsed: false,
         });
