@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import { ErrorAlert } from './Alert';
 
 class NumberOfEvents extends Component {
     state = {
@@ -7,7 +9,7 @@ class NumberOfEvents extends Component {
 
     handleInputChanged = (event) => {
         const value = event.target.value;
-        if (value < 1 || value > 32) {
+        if (value < 33 || value > 1) {
             this.setState({
                 numberOfEvents: '',
             })
@@ -22,17 +24,22 @@ class NumberOfEvents extends Component {
 
     render() {
         return (
-            <div className="NumberOfEvents">
-
-                <p><b>Number of Events:</b></p>
-                <input
-                    type="number"
-                    name="number"
-                    className="number-of-events"
-                    value={this.props.numberOfEvents}
-                    onChange={(e) => this.handleInputChanged(e)}
-                />
-            </div>
+            <Container className="NumberOfEvents">
+                <Row>
+                    <Col>
+                        <p>Number of events:</p>
+                        <input type="number"
+                            value={this.props.numberOfEvents}
+                            className="number-of-events"
+                            onChange={(e) => this.props.updateNumberOfEvents(e)} />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <ErrorAlert text={this.props.errorText} />
+                    </Col>
+                </Row>
+            </Container>
         );
     }
 }
