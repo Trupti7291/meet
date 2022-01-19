@@ -1,45 +1,47 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
 import { ErrorAlert } from './Alert';
 
 class NumberOfEvents extends Component {
     state = {
-        numberOfEvents: 32,
-    }
+        numberEvents: 32,
+        errorText: ''
+    };
 
-    handleInputChanged = (event) => {
+    handleInputChange = event => {
         const value = event.target.value;
-        if (value < 33 || value > 1) {
+
+        if (value <= 0) {
             this.setState({
-                numberOfEvents: '',
+                numberEvents: value,
+                errorText: 'Please select a number from 1 to 32 only.'
+            })
+        } else if (value > 32) {
+            this.setState({
+                numberEvents: value,
+                errorText: 'Please select a number from 1 to 32 only.'
             })
         } else {
             this.setState({
-                numberOfEvents: value,
-            });
+                numberEvents: value,
+                errorText: ''
+            })
         }
-        this.props.updateNumberOfEvents(event.target.value);
-    };
-
+        this.props.updateEventNumber(event);
+    }
 
     render() {
         return (
-            <Container className="NumberOfEvents">
-                <Row>
-                    <Col>
-                        <p>Number of events:</p>
-                        <input type="number"
-                            value={this.props.numberOfEvents}
-                            className="number-of-events"
-                            onChange={(e) => this.props.updateNumberOfEvents(e)} />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <ErrorAlert text={this.props.errorText} />
-                    </Col>
-                </Row>
-            </Container>
+            <div className='NumberOfEvents'>
+                <label htmlFor='numberOfEvent'>Number of Events</label>
+                <br></br>
+                <input
+                    type="number"
+                    className="numberInput"
+                    value={this.state.numberEvents}
+                    onChange={this.handleInputChange}
+                />
+                <ErrorAlert text={this.state.errorText} />
+            </div>
         );
     }
 }
