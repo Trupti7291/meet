@@ -41,4 +41,4 @@ class OfflineAlert extends Alert {
         this.color = 'fc1303';
     }
 }
-export { InfoAlert, ErrorAlert, OfflineAlert };
+export { InfoAlert, ErrorAlert, OfflineAlert }

@@ -13,25 +13,48 @@ import EventGenre from './EventGenre';
 
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      events: [],
-      locations: [],
-      numberOfEvents: 32,
-      currentLocation: 'all',
-      showWelcomeScreen: undefined,
-      offlineText: ''
-
-    }
+  state = {
+    events: [],
+    locations: [],
+    numberOfEvents: 32,
+    activeLocation: 'all',
+    showWelcomeScreen: false
   }
+
+  updateEvents = (location, eventCount = this.state.eventCount) => {
+    getEvents().then((events) => {
+      let locationEvents = (location === "all" ? events : events.filter((event) => event.location === location));
+      locationEvents = locationEvents.slice(0, eventCount)
+      this.setState({
+        events: locationEvents,
+        numberOfEvents: eventCount,
+        activeLocation: location
+      });
+    });
+  }
+
+  updateNumberofEvents = (newNumberOfEvents) => {
+    this.setState({
+      numberOfEvents: newNumberOfEvents
+    });
+    this.updateEvents(this.state.activeLocation);
+  }
+
+  // New Function
+  getData = () => {
+    const { locations, events } = this.state;
+    const data = locations.map((location) => {
+      const number = events.filter((event) => event.location === location).length
+      const city = location.split(', ').shift()
+      return { city, number };
+    })
+    return data;
+  };
 
   async componentDidMount() {
     this.mounted = true;
     const accessToken = localStorage.getItem('access_token');
-    const isTokenValid = (await checkToken(accessToken)).error ? false :
-      true;
+    const isTokenValid = (await checkToken(accessToken)).error ? false : true;
     const searchParams = new URLSearchParams(window.location.search);
     const code = searchParams.get("code");
     this.setState({ showWelcomeScreen: !(code || isTokenValid) });
@@ -57,51 +80,13 @@ class App extends Component {
     this.mounted = false;
   }
 
-  updateEvents = (location, numberOfEvents) => {
-    getEvents().then((events) => {
-      const locationEvents =
-        location === "all"
-          ? events
-          : events.filter((event) => event.location === location);
-
-      const eventsToShow = locationEvents.slice(0, numberOfEvents);
-      if (this.mounted) {
-        this.setState({
-          events: eventsToShow,
-          currentLocation: location
-        });
-      }
-    });
-  };
-
-
-  updateEventNumber = async (event) => {
-    const eventCount = event.target.value ? parseInt(event.target.value) : 32;
-    await this.setState({ numberOfEvents: eventCount });
-    this.updateEvents(this.state.currentLocation, this.state.numberOfEvents);
-  }
-
-  // New Function
-  getData = () => {
-    const { locations, events } = this.state;
-    const data = locations.map((location) => {
-      const number = events.filter((event) => event.location === location).length
-      const city = location.split(', ').shift()
-      return { city, number };
-    })
-    return data;
-  };
-
-
   render() {
     if (this.state.showWelcomeScreen === undefined)
       return <div className="App" />
-    const { locations, numberOfEvents, events } = this.state;
+    const { locations, numberOfEvents, events, OfflineAlertText } = this.state;
     return (
       <div className="App">
-        <OfflineAlert
-          text={this.state.offlineText}
-        />
+        <OfflineAlert text={OfflineAlertText} />
         <h1>Meet App</h1>
 
         <h4>Choose your nearest city</h4>
