@@ -3,8 +3,9 @@
     width: 100%;
     height: 100%;
     top: 0;
-    background: white;
-    background-image: url(../src/11.jpeg);
+    text-align: center;
+  padding: 2% 5%;
+    background: rgb(247, 216, 216);
     }
     .login-button {
     color: #494949;
@@ -18,12 +19,13 @@
     margin: 1rem;
     }
     .google-btn {
-    width: 184px;
+    width: 180px;
     height: 42px;
     margin: 1rem;
     background-color: #4285f4;
     border-radius: 2px;
     box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+    text-align: center;
     }
     .google-btn:hover {
     box-shadow: 0 0 6px #4285f4;
